@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Config Center - SAP UI5 Style with Icons</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "72", Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+        }
+
+        .kds-container {
+            height: 100%;
+            width: 100%;
+        }
+
+        .kds-container h3 {
+            padding: 12px;
+            border-bottom: 1px solid #d9d9d9;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .kds-container-flex {
+            display: flex;
+            width: 100%;
+            height: calc(100vh - 44px);
+        }
+
+        /* Sidebar */
+        .kds-container .sidebar {
+            width: 260px;
+            background: #f5f6f7;
+            border-right: 1px solid #d9d9d9;
+            display: flex;
+            flex-direction: column;
+            padding: 8px;
+            height: calc(100vh - 43px);
+            overflow-y: auto;
+        }
+
+        .kds-container .menu-header {
+            font-size: 14px;
+            font-weight: normal;
+            /* padding: 14px 20px; */
+            padding: 7px 10px 7px 20px;
+            color: #131e29;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-bottom: 6px;
+            background: #fff;
+            border-radius: .375rem;
+        }
+
+        .kds-container .menu-header:hover {
+            background: #f5faff;
+        }
+
+        .kds-container .menu-header i {
+            margin-right: 10px;
+            font-size: 16px;
+            color: #131e29;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .kds-container .menu-header i.fa-angle-right {
+            font-size: 14px;
+        }
+
+        .kds-container .menu-header.active i.fa-angle-right {
+            transform: rotate(90deg);
+        }
+
+        .kds-container .menu-header span.arrow {
+            transition: transform 0.2s ease;
+        }
+
+        .kds-container .menu-header.active span.arrow {
+            transform: rotate(90deg);
+        }
+
+        .kds-container .submenu {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+            display: none;
+            flex-direction: column;
+        }
+
+        .kds-container .submenu li {
+            padding: 7px 20px 7px 40px;
+            font-size: 14px;
+            color: #32363a;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            align-items: center;
+            margin: 0 0 6px;
+            border-radius: .375rem;
+            background: #fff;
+        }
+
+        .kds-container .submenu li:hover {
+            background: #ebebeb;
+        }
+
+        .kds-container .submenu li.active {
+            outline: 1px solid #0070f2;
+            border-left: 3px solid #0070f2;
+            background: #eef6fb;
+            color: #131e29;
+            font-weight: normal;
+        }
+
+        .kds-container .submenu li i {
+            margin-right: 10px;
+            font-size: 14px;
+            color: #6a6d70;
+        }
+
+        .kds-container .submenu li:hover {
+            background: #ebebeb;
+        }
+
+        .kds-container .submenu li.active {
+            font-weight: normal;
+            color: #131e29;
+            background: #eef6fb;
+        }
+
+        .kds-container .submenu li.active i {
+            color: #131e29;
+        }
+
+        /* Content Area */
+        .kds-container .content {
+            flex: 1;
+            padding: 20px;
+            height: calc(100vh - 43px);
+            overflow-y: auto;
+        }
+
+        .kds-container .tab-content {
+            display: none;
+        }
+
+        .kds-container .tab-content.active {
+            display: block;
+        }
+
+        .kds-container .form-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 18px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            /* max-width: 700px; */
+            border: 1px solid #ddd;
+        }
+
+        .kds-container .form-box h2 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #32363a;
+        }
+
+        .kds-container .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .kds-container .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kds-container .form-group label {
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #bfbfbf;
+            font-weight: 600;
+        }
+
+        .kds-container .btn {
+            background: #0070f2;
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .kds-container .btn:hover {
+            background: #0064d9;
+        }
+
+        .kds-container .kds-menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .kds-container .kds-menu span {
+            white-space: nowrap;
+            width: 185px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .kds-container .kds-pramary-btn {
+            text-align: right;
+            padding: 15px 0;
+        }
+
+        .kds-container .kds-pramary-btn .btn {
+            border-radius: 0.5rem;
+            padding: 6px 10px;
+            font-size: 14px;
+        }
+
+        .kds-container select,
+        .kds-container input {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            background: #fff;
+            font-size: 14px;
+            color: #32363a;
+            box-shadow: inset 0 0 0 .0625rem rgba(85, 107, 129, 0.25);
+            padding: 0.263rem;
+            background: 0 100% / 100% 0.0625rem no-repeat linear-gradient(0deg, #556b81, #556b81) border-box;
+            background-color: #fff;
+            border: 0.625rem none #556b81;
+            border-radius: 0.25rem;
+        }
+
+        .kds-container .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 0px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            color: #000;
+            width: fit-content;
+            margin-right: 12px;
+        }
+
+        .kds-container .erp-options input[type="radio"] {
+            display: none;
+        }
+
+
+
+        .kds-container .erp-options .custom-checkbox {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            border: 2px solid #666;
+            border-radius: 4px;
+            position: relative;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        .kds-container .erp-options input[type="radio"]:checked+.custom-checkbox::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 3px;
+            height: 9px;
+            border: solid #007bff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .custom-kds-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .custom-kds-fluid {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .custom-kds-item p {
+            font-size: 13px;
+            color: #0070f2;
+            margin: 0;
+        }
+
+        .kds-pramary-btn {
+            text-align: right;
+            padding: 15px 0;
+        }
+
+        .kds-container .custom-kds-item .btn {
+            background: #fff;
+            color: #0070f2;
+        }
+
+        .plus-btn-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .kds-container .custom-kds-item .btn .btn {
+            background: #0070f2;
+            color: #fff;
+            padding: 0px 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="kds-container">
+        <h3>KDS-Configurations</h3>
+        <div class="kds-container-flex">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="menu-header" onclick="toggleDropdown('basic', this)">
+                    <div class="kds-menu"><span><i class="fa fa-cogs" aria-hidden="true"></i> Basic
+                            Configurations</span>
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <ul id="basic" class="submenu">
+                    <li onclick="showTab('systems', this)">Systems</li>
+                    <li onclick="showTab('roles', this)">Roles</li>
+                    <li onclick="showTab('types', this)">Types</li>
+                    <li onclick="showTab('process', this)">Process</li>
+                </ul>
+                <div class="menu-header" onclick="toggleDropdown('advanced', this)">
+                    <div class="kds-menu"><span><i class="fa fa-sliders" aria-hidden="true"></i> Advanced
+                            Configurations</span> <i class="fa fa-angle-right" aria-hidden="true"></i></div>
+                    <!-- <span class="arrow">▶</span> -->
+                </div>
+                <ul id="advanced" class="submenu">
+                    <li>Dummy Option 1</li>
+                    <li>Dummy Option 2</li>
+                </ul>
+            </div> <!-- Content -->
+            <div class="content"> <!-- Systems Tab -->
+                <div id="systems" class="tab-content">
+                    <div class="form-box">
+                        <h2>Create System Entry</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="domain">Domain</label>
+                                <select id="domain">
+                                    <option value="">Select domain</option>
+                                    <option>Product</option>
+                                    <option>Service</option>
+                                    <option>Vendor Chain</option>
+                                    <option>Customer</option>
+                                    <option>Asset</option>
+                                </select>
+                                <!-- add this here to   -->
+                                <div class="custom-kds-item">
+
+                                    <button type="button" class="btn plus-btn" data-target="domain"
+                                        style="padding:4px 10px; font-size:12px;">
+                                        do you want to new domain?
+                                    </button>
+                                </div>
+                                <div class="custom-kds-fluid input-wrapper" data-wrapper="domain" style="display:none;">
+                                    <input type="text" placeholder="Enter new domain" />
+                                    <button type="button" class="btn save-btn" data-target="domain"
+                                        style="padding:4px 10px; font-size:12px;">Add</button>
+                                    <button type="button" class="btn delete-btn" data-target="domain"
+                                        style="padding:4px 10px; font-size:12px; background:#f44336;">
+                                        <i class="fa fa-trash"></i> 
+                                    </button>
+                                </div>
+                                <!--  here   -->
+                            </div>
+                            <div class="form-group">
+                                <label for="instance">Instance</label>
+                                <select id="instance">
+                                    <option value="">Select instance</option>
+                                    <option>100</option>
+                                    <option>200</option>
+                                    <option>300</option>
+                                    <option>400</option>
+                                </select>
+                                <!-- add this here to   -->
+                                <div class="custom-kds-item">
+                                    <button type="button" class="btn plus-btn" data-target="instance"
+                                        style="padding:4px 10px; font-size:12px;">do you want to new instance?</button>
+                                </div>
+                                <div class="custom-kds-fluid input-wrapper" data-wrapper="instance"
+                                    style="display:none;">
+                                    <input type="text" placeholder="Enter new instance" />
+                                    <button type="button" class="btn save-btn" data-target="instance"
+                                        style="padding:4px 10px; font-size:12px;">Add</button>
+                                </div>
+                                <!--  here  -->
+                            </div>
+                            <div class="form-group">
+                                <label>ERP</label>
+                                <!-- add data-target-container="erp" data-name="erp" here  -->
+                                <div class="erp-options checkbox-group" data-target-container="erp" data-name="erp">
+                                    <label>
+                                        <input type="radio" name="erp" value="SAP ECC" />
+                                        <span class="custom-checkbox"></span> SAP ECC
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="erp" value="SAP S/4HANA" />
+                                        <span class="custom-checkbox"></span> SAP S/4HANA
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="erp" value="Oracle E-Business" />
+                                        <span class="custom-checkbox"></span> Oracle E-Business
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="erp" value="Dynamics" />
+                                        <span class="custom-checkbox"></span> Microsoft Dynamics
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="erp" value="Custom" />
+                                        <span class="custom-checkbox"></span> Custom
+                                    </label>
+                                    <!-- add this here to   -->
+                                    <div class="custom-kds-item" style="margin-left:0;">
+                                        <button type="button" class="btn plus-btn" data-target="erp"
+                                            style="padding:4px 10px; font-size:12px;">do you want to new ERP?</button>
+                                    </div>
+                                    <div class="custom-kds-fluid input-wrapper" data-wrapper="erp"
+                                        style="display:none;">
+                                        <input type="text" placeholder="Enter new ERP" />
+                                        <button type="button" class="btn save-btn" data-target="erp"
+                                            style="padding:4px 10px; font-size:12px;">Add</button>
+                                    </div>
+                                    <!-- here -->
+                                </div>
+                            </div>
+                        </div>
+                        <!--========== remove this here  -->
+                        <!-- <div class="kds-pramary-btn"><button class="btn">Save System</button></div> -->
+                    </div>
+                    <!-- <div class="kds-pramary-btn"><button class="btn">Save System</button></div> -->
+                </div> <!-- Roles Tab -->
+                <div id="roles" class="tab-content">
+                    <div class="form-box">
+                        <h2>Roles Management</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="roleId">Role ID</label>
+                                <div class="erp-options checkbox-group">
+                                    <label>
+                                        <input type="radio" name="role" value="MM Requestor">
+                                        <span class="custom-checkbox"></span> MM Requestor
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="role" value="MM Approver">
+                                        <span class="custom-checkbox"></span> MM Approver
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="role" value="MM Manager">
+                                        <span class="custom-checkbox"></span> MM Manager
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="role" value="MSM Requestor">
+                                        <span class="custom-checkbox"></span> MSM Requestor
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="role" value="SM Approver">
+                                        <span class="custom-checkbox"></span> SM Approver
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- Types Tab -->
+                <div id="types" class="tab-content">
+                    <div class="form-box">
+                        <h2>Types Configuration</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="plant">Plant</label>
+                                <select id="plant">
+                                    <option value="">Select plant</option>
+                                    <option>1000</option>
+                                    <option>0001</option>
+                                    <option>1010</option>
+                                    <option>2000</option>
+                                </select>
+
+                                <!-- add this here to   -->
+                                <div class="custom-kds-item">
+                                    <button type="button" class="btn plus-btn" data-target="plant"
+                                        style="padding:4px 10px; font-size:12px;">do you want to new plant?</button>
+                                </div>
+                                <div class="custom-kds-fluid input-wrapper" data-wrapper="plant" style="display:none;">
+                                    <input type="text" placeholder="Enter new plant" />
+                                    <button type="button" class="btn save-btn" data-target="plant"
+                                        style="padding:4px 10px; font-size:12px;">Add</button>
+                                </div>
+                                <!--  here  -->
+                            </div>
+
+                            <div class="form-group">
+                                <label for="materialType">Material Type</label>
+                                <select id="materialType">
+                                    <option value="">Select material type</option>
+                                    <option>ERSA</option>
+                                    <option>NLAG</option>
+                                    <option>2604</option>
+                                    <option>ZPKG</option>
+                                </select>
+                                <!-- add this here to   -->
+                                <div class="custom-kds-item">
+                                    <button type="button" class="btn plus-btn" data-target="materialType"
+                                        style="padding:4px 10px; font-size:12px;">do you want to new material?</button>
+                                </div>
+                                <div class="custom-kds-fluid input-wrapper" data-wrapper="materialType"
+                                    style="display:none;">
+                                    <input type="text" placeholder="Enter new material type" />
+                                    <button type="button" class="btn save-btn" data-target="materialType"
+                                        style="padding:4px 10px; font-size:12px;">Add</button>
+                                </div>
+                                <!-- here  -->
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- Process Tab -->
+                <div id="process" class="tab-content">
+                    <div class="form-box">
+                        <h2>Process Setup</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Process</label>
+                                <!-- add data-target-container="Process" data-name="Process" here  -->
+                                <div class="erp-options checkbox-group" data-target-container="Process"
+                                    data-name="Process">
+                                    <label>
+                                        <input type="radio" name="Process" value="CREATE" />
+                                        <span class="custom-checkbox"></span> CREATE
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="Process" value="CHANGE" />
+                                        <span class="custom-checkbox"></span> CHANGE
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="Process" value="DELETE" />
+                                        <span class="custom-checkbox"></span> DELETE
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="Process" value="EXTEND" />
+                                        <span class="custom-checkbox"></span> EXTEND
+                                    </label>
+                                    <!-- add this here to   -->
+                                    <div class="custom-kds-item" style="margin-left:0;">
+                                        <button type="button" class="btn plus-btn" data-target="Process"
+                                            style="padding:4px 10px; font-size:12px;">do you want to new
+                                            process?</button>
+                                    </div>
+                                    <div class="custom-kds-fluid input-wrapper" data-wrapper="Process"
+                                        style="display:none;">
+                                        <input type="text" placeholder="Enter new process" />
+                                        <button type="button" class="btn save-btn" data-target="Process"
+                                            style="padding:4px 10px; font-size:12px;">Add</button>
+                                    </div>
+                                    <!--  here  -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- add this here  -->
+                    <div class="kds-pramary-btn"><button class="btn">Submit</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Toggle dropdown
+        function toggleDropdown(id, header) {
+            const menu = document.getElementById(id);
+
+            // ===== remove this 
+            // const arrow = header.querySelector('.arrow');
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+                header.classList.remove("active");
+            } else {
+                menu.style.display = "block";
+                header.classList.add("active");
+            }
+        }
+        // Show tab content
+        function showTab(id, item) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('.submenu li').forEach(li => {
+                li.classList.remove('active');
+            });
+            //========= update this line
+            if (item) item.classList.add('active');
+        }
+
+
+        //========== new code add this code 
+
+
+        // Generic add/save behaviour for all plus buttons (selects and radio groups)
+        document.addEventListener("click", function (e) {
+            // Show input wrapper when + clicked
+            if (e.target.classList.contains("plus-btn")) {
+                const target = e.target.getAttribute("data-target");
+                const wrapper = document.querySelector(`.input-wrapper[data-wrapper="${target}"]`);
+                if (wrapper) wrapper.style.display = "flex";
+                e.target.style.display = "none";
+            }
+
+            if (e.target.classList.contains("delete-btn") || e.target.closest(".delete-btn")) {
+                const btn = e.target.closest(".delete-btn");
+                const target = btn.getAttribute("data-target");
+                const wrapper = document.querySelector(`.input-wrapper[data-wrapper="${target}"]`);
+                if (!wrapper) return;
+
+                const input = wrapper.querySelector("input");
+                if (input) input.value = ""; // clear input field
+
+                wrapper.style.display = "none"; // hide wrapper
+                const plusBtn = document.querySelector(`.plus-btn[data-target="${target}"]`);
+                if (plusBtn) plusBtn.style.display = "inline-block"; // show + button again
+            }
+
+            // Save new value when Add clicked
+            if (e.target.classList.contains("save-btn")) {
+                const target = e.target.getAttribute("data-target");
+                const wrapper = document.querySelector(`.input-wrapper[data-wrapper="${target}"]`);
+                if (!wrapper) return;
+                const input = wrapper.querySelector("input");
+                const value = input.value.trim();
+                if (!value) {
+                    // nothing entered — simply close
+                    input.value = "";
+                    wrapper.style.display = "none";
+                    const plusBtnEmpty = document.querySelector(`.plus-btn[data-target="${target}"]`);
+                    if (plusBtnEmpty) plusBtnEmpty.style.display = "inline-block";
+                    return;
+                }
+
+                // If target is a select element id -> add option
+                const selectEl = document.getElementById(target);
+                if (selectEl && selectEl.tagName === "SELECT") {
+                    const option = document.createElement("option");
+                    option.text = value;
+                    option.value = value;
+                    selectEl.add(option);
+                    selectEl.value = value; // select newly added
+                } else {
+                    // Otherwise try to find a container (for radio groups like ERP)
+                    const container = document.querySelector(`[data-target-container="${target}"]`);
+                    if (container) {
+                        const name = container.getAttribute("data-name") || target; // radio name
+                        const label = document.createElement("label");
+                        // build: <label><input type="radio" name="..." value="..."><span class="custom-checkbox"></span> value</label>
+                        const radio = document.createElement("input");
+                        radio.type = "radio";
+                        radio.name = name;
+                        radio.value = value;
+
+                        const span = document.createElement("span");
+                        span.className = "custom-checkbox";
+
+                        label.appendChild(radio);
+                        label.appendChild(span);
+                        label.appendChild(document.createTextNode(" " + value));
+
+                        // Insert before the custom-kds-item if present, otherwise append
+                        const customItem = container.querySelector(".custom-kds-item");
+                        if (customItem) container.insertBefore(label, customItem);
+                        else container.appendChild(label);
+
+                        // check the newly added radio
+                        radio.checked = true;
+                    } else {
+                        // fallback: not found - do nothing
+                        console.warn("Target container not found for:", target);
+                    }
+                }
+
+
+
+                // reset & hide wrapper, show + button again
+                input.value = "";
+                wrapper.style.display = "none";
+                const plusBtn = document.querySelector(`.plus-btn[data-target="${target}"]`);
+                if (plusBtn) plusBtn.style.display = "inline-block";
+            }
+        });
+
+    </script>
+</body>
+
+</html>
+
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem consequuntur ad esse nisi blanditiis aspernatur voluptatum. Dignissimos corrupti suscipit vero autem vitae cumque ab! Magnam impedit suscipit delectus porro ad.
